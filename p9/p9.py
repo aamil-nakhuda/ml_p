@@ -1,4 +1,3 @@
-# finalized practical 9
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras import Sequential
@@ -76,6 +75,5 @@ n_batch = 32
 generator = build_generator(latent_dim)
 discriminator = build_discriminator()
 gan = build_gan(generator, discriminator)
-
 # Train the GAN
 train_gan(generator, discriminator, gan, latent_dim, n_epochs, n_batch, n_eval=1000)
