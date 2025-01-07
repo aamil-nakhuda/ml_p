@@ -1,0 +1,7 @@
+p1a and p1b is different than what I gave 
+p3b could be shortned - As per my knowledge it has multiple unecessary/ not needed steps which is not asked in the aim/question. Still I am only 80% sure on this
+p3c - Probably this is different than the one I did at clg. I think this is done by Shivam. Practical looks different but works
+p4b - Dataset file isn't present. Can't run practical!
+
+1. Code copy paste
+2. review the steps
