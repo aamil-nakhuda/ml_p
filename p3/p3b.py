@@ -1,4 +1,5 @@
 # Import necessary libraries
+# p3b could be shortned - As per my knowledge it has multiple unecessary/ not needed steps which is not asked in the aim/question. Still I am only 80% sure on this
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
