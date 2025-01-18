@@ -1,4 +1,4 @@
-# Skip this prac
+# Skip this prac - Implement Hidden Markov Models using hmmlearn
 
 # New code - still doesn't work
 # import numpy as np
@@ -84,3 +84,43 @@
 # predicted_new_states = model.predict(new_observations)
 # print("\nPredicted Hidden States for New Observations (No Umbrella, Umbrella, Umbrella):")
 # print(predicted_new_states)
+
+# ---------------------------------------------------------------------------
+
+import numpy as np
+import pandas as pd
+from hmmlearn import hmm
+
+# Step 1: Load the real-world dataset
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/undocumented/connectionist-bench/sonar/sonar.all-data"
+data = pd.read_csv(url, header=None)
+
+# Step 2: Preprocess the dataset
+# Map the target labels (last column) to integers
+label_mapping = {"R": 0, "M": 1}  # Rock (R) or Mine (M)
+data.iloc[:, -1] = data.iloc[:, -1].map(label_mapping)
+
+# Extract features and convert to required format
+X = data.iloc[:, :-1].values  # Features
+y = data.iloc[:, -1].values   # Labels (hidden states)
+
+# Convert continuous data to discrete states (required by MultinomialHMM)
+# Discretize features using bins
+n_bins = 10  # Number of bins for discretization
+X_binned = np.digitize(X, bins=np.linspace(X.min(), X.max(), n_bins))
+
+# Step 3: Train the HMM model
+n_states = 2  # We assume two hidden states (Rock and Mine)
+hmm_model = hmm.MultinomialHMM(n_components=n_states, n_iter=100, tol=1e-4, verbose=True)
+hmm_model.fit(X_binned)
+
+# Step 4: Make predictions using the trained model
+log_prob, predicted_states = hmm_model.decode(X_binned, algorithm="viterbi")
+
+# Step 5: Print results
+print("Predicted States:", predicted_states)
+
+# Step 6: Print trained model parameters
+print("Trained Start Probabilities:\n", hmm_model.startprob_)
+print("Trained Transition Matrix:\n", hmm_model.transmat_)
+print("Trained Emission Probabilities:\n", hmm_model.emissionprob_)
